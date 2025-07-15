@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
 
 # 创建普通用户
 RUN useradd -m -s /bin/bash xyz && \
-    echo "xyz ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+    passwd -l root && \
+    rm -f /usr/bin/su /bin/su /usr/bin/sudo
 
 # 拷贝 .bashrc 增量内容
 COPY safe-shell.sh bashrc.append vimrc /tmp/

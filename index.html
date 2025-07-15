@@ -27,12 +27,11 @@
 
 <script>
   function sendResize(containerId, rows, cols) {
-    fetch(`http://localhost:2375/containers/${containerId}/resize?h=${rows}&w=${cols}`, {
+    fetch(`https://python-abc.xyz/linux/ws/containers/${containerId}/resize?h=${rows}&w=${cols}`, {
       method: "POST"
     });
   }
-  const filename = window.location.pathname.split('/').pop().split('.').slice(0, -1).join('.');
-  //document.title = `${filename}`;
+  const filename = window.location.pathname.split('/').pop()
   document.title = `终端 - ${filename}`;
 
   const containerId = `linux-${filename}`
@@ -42,8 +41,8 @@
       cursorBlink: true,
     }
   var fitAddon = new FitAddon.FitAddon()
-  //var socket = new WebSocket(`ws://localhost/linuxws/containers/${containerId}/attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`)
-  var socket = new WebSocket(`ws://localhost:2375/containers/${containerId}/attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`)
+  //var socket = new WebSocket(`ws://localhost:2375/containers/${containerId}/attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`)
+  var socket = new WebSocket(`wss://python-abc.xyz/linux/ws/containers/${containerId}/attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`)
   var attachAddon = new AttachAddon.AttachAddon(socket)
 
   term.loadAddon(attachAddon)
