@@ -26,6 +26,16 @@
 </html>
 
 <script>
+  function setFavicon(url) {
+    const link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/x-icon';
+    link.href = url;
+    // 移除已有 favicon（可选）
+    const existingIcons = document.querySelectorAll("link[rel~='icon']");
+    existingIcons.forEach(el => el.remove());
+    document.head.appendChild(link);
+  }
   function sendResize(containerId, rows, cols) {
     fetch(`https://python-abc.xyz/linux/ws/containers/${containerId}/resize?h=${rows}&w=${cols}`, {
       method: "POST"
@@ -33,6 +43,7 @@
   }
   const filename = window.location.pathname.split('/').pop()
   document.title = `终端 - ${filename}`;
+  setFavicon(`favicon-${filename}.ico`);
 
   const containerId = `linux-${filename}`
   var term = new Terminal()

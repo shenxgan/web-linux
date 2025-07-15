@@ -1,12 +1,34 @@
 services:
+
   ubuntu:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu
     container_name: linux-ubuntu
     hostname: ubuntu
     tty: true
     stdin_open: true
-    deploy:
-      resources:
-        limits:
-          # cpus: '0.5'
-          memory: 512M
+    cpus: 0.2
+    mem_limit: 256m
+
+  centos:
+    build:
+      context: .
+      dockerfile: Dockerfile.centos
+    container_name: linux-centos
+    hostname: centos
+    tty: true
+    stdin_open: true
+    cpus: 0.2
+    mem_limit: 256m
+
+  debian:
+    build:
+      context: .
+      dockerfile: Dockerfile.debian
+    container_name: linux-debian
+    hostname: debian
+    tty: true
+    stdin_open: true
+    cpus: 0.2
+    mem_limit: 256m
