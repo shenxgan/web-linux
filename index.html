@@ -65,7 +65,7 @@
 
   socket.onopen = () => { 
     sendResize(containerId, term.rows, term.cols);
-    socket.send('\n') 
+    socket.send('\n')
   } // 当连接建立时向终端发送一个换行符，不这么做的话最初终端是没有内容的，输入换行符可让终端显示当前用户的工作路径
 
   // 可选：自动调整大小
