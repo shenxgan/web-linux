@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     bash sudo vim curl \
     net-tools iputils-ping \
-    python3 python3-pip \
+    python3 python3-pip python3-requests \
     cowsay libaa-bin sl cmatrix figlet cowsay \
     locales \
  && locale-gen zh_CN.UTF-8 && update-locale LANG=zh_CN.UTF-8 \
@@ -22,10 +22,13 @@ RUN useradd -m -s /bin/bash xyz && \
     rm -f /usr/bin/su /bin/su /usr/bin/sudo
 
 # 拷贝 .bashrc 增量内容
-COPY safe-shell.sh bashrc.append vimrc easter.egg /tmp/
+COPY safe-shell.sh bashrc.append vimrc easter.egg gpt /tmp/
 # 追加内容到用户原始 .bashrc
 RUN cat /tmp/bashrc.append >> /home/xyz/.bashrc && \
     chown xyz:xyz /home/xyz/.bashrc && \
+    mv /tmp/gpt /usr/local/bin/gpt && \
+    ln -sf /usr/local/bin/gpt /usr/local/bin/ai && \
+    ln -sf /usr/local/bin/gpt /usr/local/bin/chat && \
     mv /tmp/safe-shell.sh /home/xyz && \
     chown xyz:xyz /home/xyz/safe-shell.sh && \
     chmod +x /home/xyz/safe-shell.sh && \

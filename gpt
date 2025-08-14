@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+
+import sys
+import requests
+from collections import deque
+
+
+def get_msg(content):
+    url = 'https://open.bigmodel.cn/api/paas/v4/chat/completions'
+    api_key = '0464b33814bc4af59d9df1920759d440.nq9nBaUOUkCmdKa1'
+    system_prompt = '你是专业的运维开发工程师，总能言简意赅的来进行回复'
+
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {api_key}'
+    }
+    # print(historys)
+    historys.append({'role': 'user', 'content': content})
+    data = {
+        'model': 'GLM-4-Flash',
+        'messages': [
+            {'role': 'system', 'content': system_prompt},
+        ],
+        # 'max_tokens': 256,
+    }
+    data['messages'].extend(historys)
+
+    r = requests.post(url, json=data, headers=headers)
+    msg = r.json()['choices'][0]['message']['content']
+    historys.append({'role': 'assistant', 'content': msg})
+    return msg
+
+
+historys = deque(maxlen=30)
+content = ' '.join(sys.argv[1:])
+if content:
+    msg = get_msg(content)
+    print(msg)
+else:
+    while True:
+        content = input('💬 ')
+        if content == 'q':
+            break
+        if not content:
+            break
+        msg = get_msg(content)
+        print(f'👽 {msg}')
