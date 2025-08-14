@@ -4,4 +4,4 @@
 3. cmatrix	像《黑客帝国》的绿色字符雨
 4. figlet	把文字变成 ASCII 艺术字，比如 figlet Hello
 5. aafire	ASCII 文字火焰特效
-6. gpt      进行 AI 对话。接参数进行一轮对话，不接可进行多轮对话
+6. gpt        进行 AI 对话。接参数进行一轮对话，不接可进行多轮对话
